@@ -1,0 +1,15 @@
+---
+- include_tasks: check_account.yml
+  when: crontab_status != "delete" 
+
+- include_tasks: crontab_create.yml
+  when: crontab_status == "create"
+
+- include_tasks: backup.yml
+  when: crontab_status == "backup"
+
+- include_tasks: undo.yml
+  when: crontab_status == "undo"   
+
+- include_tasks: crontab_delete.yml
+  when: crontab_status == "delete" 

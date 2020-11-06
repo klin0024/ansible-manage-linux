@@ -1,0 +1,20 @@
+---
+- name: Ansible account change password
+  hosts: all
+  vars:
+    account_names: ansible
+    account_password_maxdays: -1
+    #account_password: ""
+  tasks:
+  - name: Add user
+    raw: "sudo /usr/sbin/useradd {{ account_names }}"
+    ignore_errors: yes
+
+  - name: Change user password
+    raw: "echo {{ account_password }} |sudo /usr/bin/passwd {{ account_names }} --stdin"
+  
+  - name: Change user password maxdays
+    raw: "sudo /usr/bin/passwd {{ account_names }} -x {{ account_password_maxdays }}"
+
+  - name: Create sudoer file
+    raw: "echo '{{ account_names }} ALL=(ALL) ALL' |sudo /usr/bin/tee /etc/sudoers.d/{{ account_names }}"

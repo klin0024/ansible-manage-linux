@@ -1,0 +1,9 @@
+---
+- name: Remove package
+  hosts: all
+  become: yes
+  vars:
+    package_status: remove
+  #  package_name: ""
+  roles:
+  - role: package_management

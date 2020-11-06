@@ -1,0 +1,18 @@
+---
+- name: Modify accounts
+  hosts: all
+  become: yes
+  vars:
+    #account_name: ""
+    account_chpasswd: false
+    #account_password: ""
+    account_chprivileged: false
+    account_privileged: false
+    account_chnologin: false
+    account_nologin: false
+    account_expires: false
+    account_status: modify
+    account_check: true
+  roles:
+  - account_management   
+

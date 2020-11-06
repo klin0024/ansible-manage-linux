@@ -1,0 +1,11 @@
+---
+- name: "Get {{ account_name }}"  
+  shell: "/usr/bin/getent passwd {{ account_name }}"
+  ignore_errors: yes
+  register: account_info 
+
+- name: "{{ account_name }} not found"
+  debug:
+    msg: "{{ account_name }} not found"
+  when: account_info.rc != 0
+  failed_when: account_info.rc != 0    

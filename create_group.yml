@@ -1,0 +1,11 @@
+---
+- name: Create group
+  hosts: all
+  become: yes
+  vars:
+    #group_name: ""
+    #group_gid: ""
+    group_status: create
+  roles:
+  - group_management   
+

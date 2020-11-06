@@ -1,0 +1,35 @@
+---
+- name: Modify accounts
+  hosts: all
+  become: yes
+  vars:
+    #account_names: ""
+    account_chpasswd: false
+    #account_password: ""
+    account_chprivileged: false
+    account_privileged: false
+    account_chnologin: false
+    account_nologin: false
+    account_expires: false
+    account_status: modify
+    account_check: false
+    accounts: "{{ account_names.split(',') | list }}"
+  tasks:
+  - name: Print account names
+    debug:
+      var: accounts
+    run_once: yes  
+
+  - name: "Check {{ item }} account"
+    include_tasks: roles/account_management/tasks/check_account.yml
+    vars:
+      account_name: "{{ item }}"
+    with_items: "{{ accounts }}"
+
+  - name: "Modify {{ item }} account"
+    include_role:
+      name: account_management
+    vars:
+      account_name: "{{ item }}"
+    with_items: "{{ accounts }}"    
+

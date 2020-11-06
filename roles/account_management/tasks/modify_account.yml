@@ -1,0 +1,18 @@
+---
+- include_tasks: check_account.yml
+  when: account_check | bool
+
+- include_tasks: change_passwd.yml
+  when: 
+  - ( account_password | default("") | string ) != ""
+  - account_chpasswd | bool
+
+- include_tasks: privileged.yml
+  when: account_chprivileged | bool
+
+- include_tasks: login_shell.yml
+  when: account_chnologin | bool
+
+- include_tasks: expired_password.yml
+  when: account_expires | bool 
+ 

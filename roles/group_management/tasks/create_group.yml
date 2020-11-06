@@ -1,0 +1,6 @@
+---
+- name: Create group
+  group:
+    name: "{{ group_name }}"
+    gid: "{{ (group_gid == '') | ternary(omit, group_gid | int) }}"
+    state: present

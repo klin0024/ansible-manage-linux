@@ -1,0 +1,18 @@
+---
+account_name: ""
+account_password: ""
+account_uid: ""
+account_group: ""
+account_check: true
+# create / modify / delete
+account_status: modify
+
+account_chpasswd: false
+
+account_expires: false
+
+account_chprivileged: false
+account_privileged: false
+
+account_chnologin: false
+account_nologin: false

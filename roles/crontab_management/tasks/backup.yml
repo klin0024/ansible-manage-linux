@@ -1,0 +1,28 @@
+---
+- name: Create directory
+  file:
+    path: "{{ dest_backup_path }}"
+    state: directory
+    mode: 0755
+  connection: local
+  vars:
+    ansible_python_interpreter: /var/lib/awx/venv/ansible/bin/python
+
+- name: Backup user crontab
+  fetch:
+    src: "{{ src_contab_path }}/{{ crontab_account }}"
+    dest: "{{ dest_backup_path }}/{{ crontab_prefix }}-{{ crontab_account }}"
+    flat: yes
+    fail_on_missing: yes
+  register: crontab_backup
+  ignore_errors: yes
+
+- name: If user crontab not found
+  file:
+    path: "{{ dest_backup_path }}/{{ crontab_prefix }}-{{ crontab_account }}"
+    state: touch
+    #mode: 0644
+  connection: local
+  vars:
+    ansible_python_interpreter: /var/lib/awx/venv/ansible/bin/python
+  when: crontab_backup is failed 

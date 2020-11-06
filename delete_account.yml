@@ -1,0 +1,10 @@
+---
+- name: Delete account
+  hosts: all
+  become: yes
+  vars:
+    #account_name: ""
+    account_status: delete
+  roles:
+  - account_management    
+

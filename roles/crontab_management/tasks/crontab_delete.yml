@@ -1,0 +1,5 @@
+---
+- name: Deletre user crontab
+  file:
+    path: "{{ src_contab_path }}/{{ crontab_account }}"
+    state: absent

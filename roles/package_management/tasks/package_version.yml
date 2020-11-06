@@ -1,0 +1,6 @@
+---
+- name: Install or update package version
+  yum:
+    name: "{{ package_name }}-{{ package_version }}*"
+    state: present
+    update_cache: yes

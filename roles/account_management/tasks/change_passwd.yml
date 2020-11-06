@@ -1,0 +1,7 @@
+---
+- name: Change password
+  user:
+    name: "{{ account_name }}"
+    password: "{{ account_password | password_hash('sha512') }}"
+    update_password: always
+    state: present

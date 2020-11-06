@@ -1,0 +1,6 @@
+---
+- name: Yum update cache 
+  shell: yum makecache
+
+- name: Undo package 
+  shell: yum history undo last -y 

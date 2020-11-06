@@ -1,0 +1,9 @@
+---
+- include_tasks: check_group.yml
+  when: group_status == "check"
+
+- include_tasks: create_group.yml
+  when: group_status == "create"
+
+- include_tasks: delete_group.yml
+  when: group_status == "delete"  

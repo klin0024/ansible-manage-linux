@@ -1,0 +1,25 @@
+---
+- name: Ansible account change password
+  hosts: all
+  vars:
+    account_names: ansible
+    account_chpasswd: true
+    account_chprivileged: true
+    account_privileged: true
+    #account_password: ""
+  tasks:
+  - name: Set account names
+    set_fact:
+      accounts: "{{ account_names.split(',') | list }}"
+
+  - name: Print account names
+    debug:
+      var: accounts
+  
+  - name: "Manage {{ item }} account"
+    include_role:
+      name: account_management
+    var:
+      account_name: "{{ item }}"
+    with_items: "{{ accounts }}"    
+

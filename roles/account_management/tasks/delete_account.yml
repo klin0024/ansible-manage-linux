@@ -1,0 +1,11 @@
+---
+- name: Delete account
+  user:
+    name: "{{ account_name }}"
+    remove: yes
+    state: absent
+
+- name: Unprivileged account
+  file:
+    path: "/etc/sudoers.d/{{ account_name }}"
+    state: absent

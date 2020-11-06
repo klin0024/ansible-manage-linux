@@ -1,0 +1,6 @@
+---
+- name: Remove package 
+  yum:
+    name: "{{ package_name }}"
+    state: absent
+    update_cache: yes

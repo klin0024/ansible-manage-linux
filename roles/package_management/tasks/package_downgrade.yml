@@ -1,0 +1,7 @@
+---
+- name: Downgrade package 
+  yum:
+    name: "{{ package_name }}-{{ package_version }}*"
+    state: present
+    update_cache: yes
+    allow_downgrade: yes

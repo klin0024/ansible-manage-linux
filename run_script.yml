@@ -1,0 +1,12 @@
+---
+- name: Run Script
+  hosts: all
+  vars:
+    script_file: test.sh
+    use_fetch_report: "directory_find" # directory_find or script_output
+    src_report_path: /tmp
+    src_report_patterns: "*test*"
+    src_report_regex: '(/.*)\r'
+    src_report_regex_index: '\1'
+  roles:
+  - run_script

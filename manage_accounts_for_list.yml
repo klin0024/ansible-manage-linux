@@ -1,0 +1,91 @@
+---
+- name: Create account
+  hosts: all
+  become: yes
+  vars:
+    account_search: ^(user)
+    group_status: check
+    enable_delete_account: false
+    accounts_list:
+    - { name: user1, uid: 2001, group: admin1 }
+    - { name: user2, uid: 2002, group: admin2 }
+    accounts: "{{ accounts_list | json_query('[*].name') | list }}"
+    account_groups: "{{ accounts_list | json_query('[*].group') | list | unique }}"
+  tasks:
+  - name: Print accounts
+    debug:
+      var: accounts
+    run_once: yes
+
+  - name: Print account groups
+    debug:
+      var: account_groups
+    run_once: yes
+
+  - name: Get current accounts
+    shell: "cat /etc/passwd | grep -E '{{ account_search }}' | awk -F: '{print $1}'"
+    register: current_accounts
+    ignore_errors: yes
+
+  - name: Print current accounts
+    debug:
+      var: current_accounts.stdout_lines 
+
+  - name: Get delete accounts
+    set_fact:
+      delete_accounts: "{{ current_accounts.stdout_lines | difference(accounts) | list }}"
+
+  - name: Print delete accounts
+    debug:
+      var: delete_accounts
+
+  - name: Please confirm users
+    block:
+    - debug:
+        msg: "please confirm users"
+
+    - pause:
+        seconds: 30
+    run_once: yes      
+
+  - name: Check groups
+    include_role:
+      name: group_management
+    vars:
+      group_name: "{{ item }}"
+    when: item != ''  
+    with_items: "{{ account_groups }}"       
+
+  - name: Create accounts
+    include_role:
+      name: account_management
+    vars:
+      account_name: "{{ item.name }}"
+      account_uid: "{{ item.uid | default('') | string }}"
+      account_group: "{{ item.group | default('') | string }}"
+      account_status: create   
+    with_items: "{{ accounts_list }}"
+
+  - name: Delete accounts
+    include_role:
+      name: account_management
+    vars:
+      account_name: "{{ item }}"
+      account_status: delete   
+    with_items: "{{ delete_accounts }}"
+    when: enable_delete_account | bool
+
+  - name: Get new current accounts
+    shell: "cat /etc/passwd | grep -E '{{ account_search }}' | awk -F: '{cmd=\"getent group \"$4\"|cut -d: -f1\";cmd|getline group;print $1\":\"$3\":\"group }' | sort -t: -k1"
+    register: current_accounts_new
+    ignore_errors: yes
+
+  - name: Summary report
+    debug:
+      msg: "Current Users: {{ current_accounts_new.stdout_lines }}"
+
+
+
+
+
+

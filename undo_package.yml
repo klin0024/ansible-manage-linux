@@ -1,0 +1,8 @@
+---
+- name: Uudo package
+  hosts: all
+  become: yes
+  vars:
+    package_status: undo
+  roles:
+  - role: package_management

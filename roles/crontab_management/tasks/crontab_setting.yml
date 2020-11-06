@@ -1,0 +1,9 @@
+---
+- name: Set user crontab
+  copy:
+    content: |
+      #Setting by ansible
+      {{ crontab_content }}
+    dest: "{{ src_contab_path }}/{{ crontab_account }}"
+    owner: "{{ crontab_account }}"
+    mode: 0600

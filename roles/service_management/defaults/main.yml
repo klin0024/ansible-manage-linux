@@ -1,0 +1,5 @@
+---
+service_name: ""
+
+# start / stop / restart
+service_status: restart

@@ -1,0 +1,15 @@
+---
+- name: Search report files
+  set_fact:
+    report_files: "{{ script_output.stdout | regex_search( src_report_regex, src_report_regex_index ) | list }}"  
+
+- name: Print report files 
+  debug:
+    var: report_files  
+
+- name: Fetch the report files to awx
+  fetch:
+    src: "{{ item }}" 
+    dest: "{{ dest_report_path }}"
+    flat: yes
+  with_items: "{{ report_files }}"  

@@ -1,0 +1,19 @@
+---
+#- name: Create account - useradd
+#  shell: "useradd {{ account_name }} {{ (account_uid == '') | ternary('', '-u '+account_uid) }}"
+
+#- name: Change account password
+#  user:
+#    name: "{{ account_name }}"
+#    password: "{{ account_password | password_hash('sha512') }}"
+#    state: present
+#  when: ( account_password | default("") | string ) != ""
+
+- name: Create account
+  user:
+    name: "{{ account_name }}"
+    uid: "{{ (account_uid == '') | ternary(omit, account_uid | int) }}"
+    group: "{{ (account_group == '') | ternary(omit, account_group | string) }}"
+    shell: /bin/bash
+    password: "{{ (account_password == '') | ternary(omit, account_password | password_hash('sha512')) }}"
+    state: present

@@ -1,0 +1,15 @@
+---
+- include_tasks: package_latest.yml
+  when: package_status == "latest"
+
+- include_tasks: package_version.yml
+  when: package_status == "version"
+
+- include_tasks: package_downgrade.yml
+  when: package_status == "downgrade"
+
+- include_tasks: package_remove.yml
+  when: package_status == "remove"
+
+- include_tasks: package_undo.yml
+  when: package_status == "undo" 

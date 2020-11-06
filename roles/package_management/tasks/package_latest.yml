@@ -1,0 +1,6 @@
+---
+- name: Install or update package latest
+  yum:
+    name: "{{ package_name }}"
+    state: latest
+    update_cache: yes

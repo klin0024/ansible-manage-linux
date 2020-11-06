@@ -1,0 +1,13 @@
+---
+- name: Downgrade package
+  hosts: all
+  become: yes
+  vars:
+    package_status: downgrade
+  #  package_name: ""
+  #  package_version: ""
+    service_status: restart
+    #service_name: ""
+  roles:
+  - package_management
+  - { role: service_management, when: "service_name != ''" }

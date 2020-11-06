@@ -1,0 +1,9 @@
+---
+- name: Undo user contab
+  hosts: all
+  become: yes
+  vars:
+  #  crontab_account: ""
+    crontab_status: undo
+  roles:
+  - crontab_management

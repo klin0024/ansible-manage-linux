@@ -1,0 +1,6 @@
+---
+- include_tasks: service_restart.yml
+  when: service_status == "restart"
+
+- include_tasks: service_stop.yml
+  when: service_status == "stop"

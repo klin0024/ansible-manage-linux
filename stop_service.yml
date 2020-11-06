@@ -1,0 +1,8 @@
+---
+- name: Stop service
+  hosts: all
+  become: yes
+  vars:
+    service_status: stop
+  roles:
+  - { role: service_management, when: "service_name != ''" } 

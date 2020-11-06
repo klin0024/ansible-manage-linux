@@ -1,0 +1,15 @@
+---
+- name: Create account
+  hosts: all
+  become: yes
+  vars:
+    #account_name: ""
+    #account_uid: ""
+    #account_password: ""
+    account_status: create
+    #account_group: ""
+    group_status: check
+  roles:
+  - group_management
+  - account_management    
+

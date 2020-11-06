@@ -1,0 +1,22 @@
+---
+- name: Run Script
+  hosts: all
+  become: yes
+  vars:
+    script_file: uid_chk.sh
+    use_fetch_report: "script_output" # directory_find or script_output
+    src_report_path: /var/monitor_disk
+    src_report_patterns: "*test*"
+    src_report_regex: 'EXP_FILE=(/.*)\r'
+    src_report_regex_index: '\1'
+    
+  pre_tasks:
+  - name: Create directory
+    file:
+      path: "{{ src_report_path }}"
+      state: directory
+      mode: "0755"
+      owner: root
+      group: root
+  roles:
+  - run_script

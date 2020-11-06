@@ -1,0 +1,14 @@
+---
+- name: Account set login
+  user:
+    name: "{{ account_name }}"
+    shell: /bin/bash
+    state: present
+  when: not (account_nologin | bool)  
+
+- name:  Account set nologin
+  user:
+    name: "{{ account_name }}"
+    shell: /sbin/nologin
+    state: present
+  when: account_nologin | bool   

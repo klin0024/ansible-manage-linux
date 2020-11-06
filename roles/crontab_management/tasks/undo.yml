@@ -1,0 +1,15 @@
+---
+- name: Undo user crontab
+  copy:
+    src: "{{ dest_backup_path }}/{{ crontab_prefix }}-{{ crontab_account }}"
+    dest: "{{ src_contab_path }}/{{ crontab_account }}"
+    owner: "{{ crontab_account }}"
+    mode: 0600
+  register: crontab_undo
+  ignore_errors: yes
+
+- name: Undo file not found
+  debug:
+    msg: "Undo file not found"
+  when: crontab_undo is failed
+  failed_when: crontab_undo is failed  

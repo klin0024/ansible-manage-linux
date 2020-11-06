@@ -1,0 +1,8 @@
+---
+- name: Turn on and turn off service
+  hosts: all
+  become: yes
+  #vars:
+  #  service_status: restart
+  roles:
+  - { role: service_management, when: "service_name != ''" } 

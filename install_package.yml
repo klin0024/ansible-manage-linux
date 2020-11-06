@@ -1,0 +1,12 @@
+---
+- name: Install package
+  hosts: all
+  become: yes
+  vars:
+    package_status: latest
+    #package_name: ""
+    service_status: restart
+    #service_name: ""
+  roles:
+  - package_management
+  - { role: service_management, when: "service_name != ''" } 

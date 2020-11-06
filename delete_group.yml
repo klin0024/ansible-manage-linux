@@ -1,0 +1,10 @@
+---
+- name: Delete group
+  hosts: all
+  become: yes
+  vars:
+    #group_name: ""
+    group_status: delete
+  roles:
+  - group_management   
+

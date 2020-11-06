@@ -1,0 +1,6 @@
+---
+- name: Run script
+  script: "{{ script_path }}/{{ script_file }} {{ script_args | default('') | string }}"
+  args:
+    executable: "{{ script_executable }}"
+  register: script_output  

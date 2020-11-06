@@ -1,0 +1,15 @@
+---
+- name: Privileged account
+  copy:
+    content: "{{ account_name }} ALL=(ALL) ALL"
+    dest: "/etc/sudoers.d/{{ account_name }}"
+    owner: root
+    group: root
+    mode: 0644
+  when: account_privileged | bool
+
+- name: Unprivileged account
+  file:
+    path: "/etc/sudoers.d/{{ account_name }}"
+    state: absent
+  when: not (account_privileged | bool)  

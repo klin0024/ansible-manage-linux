@@ -1,0 +1,11 @@
+---
+- name: "Get {{ group_name }}"  
+  shell: "/usr/bin/getent group {{ group_name }}"
+  ignore_errors: yes
+  register: group_info 
+
+- name: "{{ group_name }} not found"
+  debug:
+    msg: "{{ group_name }} not found"
+  when: group_info.rc != 0
+  failed_when: group_info.rc != 0   

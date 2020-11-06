@@ -1,0 +1,13 @@
+---
+crontab_account: ""
+crontab_prefix: "cron"
+crontab_content: ""
+
+#create / delete / backup / undo 
+crontab_status: "backup"
+
+enable_crontab_backup: true
+
+dest_backup_path: "/var/lib/awx/backups/{{ ansible_hostname }}"
+
+src_contab_path: "/var/spool/cron" 

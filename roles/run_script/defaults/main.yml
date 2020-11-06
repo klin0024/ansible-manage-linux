@@ -1,0 +1,18 @@
+---
+script_file: "test.sh"
+script_name: "{{ script_file }}"
+script_path: "/var/lib/awx/scripts"
+script_args: ""
+script_executable: /bin/bash
+
+# directory_find or script_output
+use_fetch_report: "script_output"
+
+src_report_path: "/tmp"
+src_report_patterns: "*test*"
+src_report_regex: '(/.*)\r'
+src_report_regex_index: '\1'
+
+
+dest_report_home: "/var/lib/awx/reports"
+dest_report_path: "{{ dest_report_home }}/{{ script_name }}/"

@@ -1,0 +1,12 @@
+---
+- name: Create user contab
+  hosts: all
+  become: yes
+  vars:
+  #  crontab_account: ""
+  #  crontab_content: |
+  #    * * * * * echo test
+    crontab_status: create
+    enable_crontab_backup: true
+  roles:
+  - crontab_management

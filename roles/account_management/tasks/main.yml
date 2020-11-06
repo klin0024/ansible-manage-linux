@@ -1,0 +1,9 @@
+---
+- include_tasks: create_account.yml
+  when: account_status == "create"
+
+- include_tasks: modify_account.yml
+  when: account_status == "modify"
+
+- include_tasks: delete_account.yml
+  when: account_status == "delete" 
